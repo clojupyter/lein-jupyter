@@ -30,11 +30,12 @@ lein-jupyter, you will need to install the jupyter kernel using the
 3.  `lein install`
 4.  `cd -`
 5.  `git clone https://github.com/didiercrunch/lein-jupyter.git`
-6.  `lein install`
-7.  `cd -`
-8.  `lein new app test-lein-jupyter`
-9.  `cd test-lein-jupyter`
-10.  Add `:plugins [[lein-jupyter "0.1.0"]]` to the `project.clj` 
-11.  `lein jupyter install-kernel`
-12.  `lein jupyter notebook`
-13.  Use the *lein-clojure* kernel.
+6.  `cd lein-jupyter`
+7.  `lein install`
+8.  `cd -`
+9.  `lein new app test-lein-jupyter`
+10.  `cd test-lein-jupyter`
+11.  Add `:plugins [[lein-jupyter "0.1.0"]]` to the `project.clj` 
+12.  `lein jupyter install-kernel`
+13.  `lein jupyter notebook`
+14.  Use the *lein-clojure* kernel.
