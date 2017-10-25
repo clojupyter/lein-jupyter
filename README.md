@@ -1,8 +1,8 @@
 # lein-jupyter
 A Leiningen plugin to integrate with [jupyter notebook](http://jupyter.org/)
 
-[![Clojars Project](https://img.shields.io/clojars/v/lein-jupyter.svg)](https://clojars.org/lein-jupyter)
-
+![jupiter](https://upload.wikimedia.org/wikipedia/commons/0/0a/Tango_Jupiter.svg)
+![Clojars Project](https://img.shields.io/clojars/v/lein-jupyter.svg)]
 
 ## How to use?
 
@@ -21,7 +21,7 @@ has been done under ubuntu linux with jupyter 4.3.0.
     vector in your `:plugins` list in your `project.clj`.  A simple project.clj might look
     like
     
-    ```clojure
+    ```    
     (defproject my-project "0.1.0-SNAPSHOT"
       :description "FIXME: write description"
       :url "http://example.com/FIXME"
