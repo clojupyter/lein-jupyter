@@ -1,6 +1,8 @@
 # lein-jupyter
-
 A Leiningen plugin to integrate with [jupyter notebook](http://jupyter.org/)
+
+[![Clojars Project](https://img.shields.io/clojars/v/lein-jupyter.svg)](https://clojars.org/lein-jupyter)
+
 
 ## How to use?
 
@@ -11,31 +13,36 @@ You will need to have [leiningen](https://leiningen.org/) and
 has been done under ubuntu linux with jupyter 4.3.0.
 
 
-### Prose
+### Installation
 
-Jars are not yet on clojars.  So at first you need to build clojupyter
-and lein-jupyter locally.  Then you can incluse lein-jupyter as a
-leiningen plugin on any of your project.
+1. 
 
-The main command line entry is `lein jupyter`.  The first time you use
-lein-jupyter, you will need to install the jupyter kernel using the
-`lein jupyter install-kernel` command.  Then, you can use the
-`lein jupyter notebook` to run the jupyter notebook.
+    `lein-jupyter` is a simple leiningen plugin.  Hence you can add the `[lein-jupyter "0.1.1"]`
+    vector in your `:plugins` list in your `project.clj`.  A simple project.clj might look
+    like
+    
+    ```clojure
+    (defproject my-project "0.1.0-SNAPSHOT"
+      :description "FIXME: write description"
+      :url "http://example.com/FIXME"
+      :license {:name "Eclipse Public License"
+                :url "http://www.eclipse.org/legal/epl-v10.html"}
+      :dependencies [[org.clojure/clojure "1.8.0"]]
+      :main ^:skip-aot my-project.core
+      :target-path "target/%s"
+      :plugins [[lein-jupyter "0.1.1"]]
+      :profiles {:uberjar {:aot :all}})
+    ```
+2.
+    The first time you use lein-jupyter, you will need to install the kernel.
+    `lein jupyter install-kernel` is the command you need to run to install
+    the kernel.  You should run the command once but nothing wrong should
+    happen if you run it more than once.
 
 
-### Algorithm
+### Using lein-jupyter
 
-1.  `git clone https://github.com/didiercrunch/clojupyter.git`
-2.  `cd clojupyter`
-3.  `lein install`
-4.  `cd -`
-5.  `git clone https://github.com/didiercrunch/lein-jupyter.git`
-6.  `cd lein-jupyter`
-7.  `lein install`
-8.  `cd -`
-9.  `lein new app test-lein-jupyter`
-10.  `cd test-lein-jupyter`
-11.  Add `:plugins [[lein-jupyter "0.1.0"]]` to the `project.clj` 
-12.  `lein jupyter install-kernel`
-13.  `lein jupyter notebook`
-14.  Use the *lein-clojure* kernel.
+
+The main command line entry is `lein jupyter`.  The first time you use lein-jupyter,
+you will need to install the jupyter kernel using the `lein jupyter install-kernel`
+command.  Then, you can use the `lein jupyter notebook` to run the jupyter notebook.

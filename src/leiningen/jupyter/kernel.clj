@@ -23,6 +23,16 @@
          (includes? os-name "win") :windows
          (includes? os-name "linux") :linux)))
 
+(defn get-kernel-dir
+  "Returns the directory where the kernel should be installed given the os"
+  [os]
+  (let [home (System/getenv "HOME")
+        appdata (System/getenv "APPDATA")]
+    (case os
+      :mac (io/file home "Library/Jupyter/kernels/lein-clojure")
+      :linux (io/file home ".local/share/jupyter/kernels/lein-clojure")
+      :windows (io/file appdata "jupyter/kernels/lein-clojure"))))
+
 (defn get-kernel-json [kernel-script-filename]
   (cheshire/generate-string {:display_name "Lein-Clojure"
                              :language "clojure"
@@ -37,21 +47,15 @@
     (spit (str kernel-script) python-kernel-script)))
 
 (defn install-kernel-on-linux []
-  (let [home (System/getenv "HOME")
-        rel-path ".local/share/jupyter/kernels/lein-clojure"
-        kernel-dir (io/file home rel-path)]
+  (let [kernel-dir (get-kernel-dir :linux)]
     (create-kernel kernel-dir)))
 
 (defn install-kernel-on-mac []
-  (let [home (System/getenv "HOME")
-        rel-path "Library/Jupyter/kernels"
-        kernel-dir (io/file home rel-path)]
+  (let [kernel-dir (get-kernel-dir :mac)]
     (create-kernel kernel-dir)))
 
 (defn install-kernel-on-windows []
-  (let [home (System/getenv "APPDATA")
-        rel-path "jupyter/kernels"
-        kernel-dir (io/file home rel-path)]
+  (let [kernel-dir (get-kernel-dir :windows)]
     (create-kernel kernel-dir)))
 
 (def architecture-not-yet-supported "You system is not supported by lein jupyter.
@@ -67,4 +71,8 @@ the current supported systems are Linux Mac and Windows (In that order).")
     :windows (install-kernel-on-windows)
     (leiningen.core.main/warn architecture-not-yet-supported)))
 
-(def -main install-kernel)
+(defn kernel-installed?
+  "return true is it is sensible to believe that kernel has properly been installed"
+  []
+  (let [kernel-dir (get-kernel-dir (get-os))]
+    (.exists kernel-dir)))

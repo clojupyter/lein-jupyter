@@ -1,6 +1,6 @@
 (ns leiningen.jupyter
   (:require [leiningen.core.main]
-            [leiningen.jupyter.kernel :refer [install-kernel run-kernel]])
+            [leiningen.jupyter.kernel :refer [install-kernel run-kernel kernel-installed?]])
 
   (:import [org.apache.commons.exec CommandLine
                                     DefaultExecutor
@@ -19,6 +19,9 @@
     (into env new-envs)))
 
 (defn notebook [lein-wd & args]
+  (if (not (kernel-installed?))
+    (leiningen.core.main/warn "It seems you have not installed the lein-jupyter kernel.  "
+                              "You should run `lein jupyter install-kernel`."))
   (let [new-env {"LEIN_WORKING_DIRECTORY" lein-wd}
         env (add-to-system-environment new-env)]
     (start-jupyter-notebook env)))
