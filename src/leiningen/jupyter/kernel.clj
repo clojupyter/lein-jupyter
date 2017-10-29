@@ -36,6 +36,8 @@
 (defn get-kernel-json [kernel-script-filename]
   (cheshire/generate-string {:display_name "Lein-Clojure"
                              :language "clojure"
+                             :codemirror_mode "clojure"
+                             :mimetype "text/x-clojure"
                              :argv ["python3" (str kernel-script-filename) "{connection_file}"]}))
 
 (defn create-kernel [kernel-dir]
