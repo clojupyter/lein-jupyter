@@ -57,7 +57,9 @@
       will start jupyter notebook on port 9876
     install-kernel:
       Install jupyter notebook's clojure kernel.  This needs to be run
-      once.
+      once.  If no argument passed, the kernel will be installed in the
+      jupyter user space.  If an argument is passed, the kernel will
+      be installed into the specified directory.
     uninstall-kernel:
       Uninstall jupyter notebook's clojure kernel.
   "
