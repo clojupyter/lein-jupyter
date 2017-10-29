@@ -6,11 +6,16 @@
                                     DefaultExecutor
                                     PumpStreamHandler]))
 
-(defn start-jupyter-notebook [environ]
+(defn get-jupyter-command [sub-command jupyter-arguments]
+  (let [all-arguments (into [sub-command] jupyter-arguments)
+        add-args #(.addArgument %1 %2)]
+      (reduce add-args (new CommandLine "jupyter") all-arguments)))
+
+
+(defn start-jupyter-notebook [environ jupyter-arguments]
   (let [executor (new DefaultExecutor)
         stream-handler (new PumpStreamHandler System/out System/err System/in)
-        cmd (doto (new CommandLine "jupyter")
-                  (.addArgument "notebook"))]
+        cmd (get-jupyter-command "notebook" jupyter-arguments)]
     (.setStreamHandler executor stream-handler)
     (.execute executor cmd environ)))
 
@@ -24,7 +29,7 @@
                               "You should run `lein jupyter install-kernel`."))
   (let [new-env {"LEIN_WORKING_DIRECTORY" lein-wd}
         env (add-to-system-environment new-env)]
-    (start-jupyter-notebook env)))
+    (start-jupyter-notebook env args)))
 
 
 (defn jupyter
@@ -47,7 +52,9 @@
   Commands:
     notebook:
       Starts jupyter notebook and links jupyter notebook's kernel
-      to the current project.
+      to the current project.  All extra parameters will be passed
+      to `jupyter notebook`.  For instance `jupyter notebook --port=9876`
+      will start jupyter notebook on port 9876
     install-kernel:
       Install jupyter notebook's clojure kernel.  This needs to be run
       once.
