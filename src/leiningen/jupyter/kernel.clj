@@ -71,5 +71,5 @@ the current supported systems are Linux Mac and Windows (In that order).")
 (defn kernel-installed?
   "return true is it is sensible to believe that kernel has properly been installed"
   []
-  (let [kernel-dir (get-platform-specific-kernel-dir (System/getenv) (get-os))]
+  (let [kernel-dir (get-platform-specific-kernel-dir (get-os) (System/getenv))]
     (.exists kernel-dir)))
