@@ -1,6 +1,9 @@
 (ns leiningen.jupyter
   (:require [leiningen.core.main]
-            [leiningen.jupyter.kernel :refer [install-kernel run-kernel kernel-installed?]])
+            [leiningen.jupyter.kernel :refer [install-kernel
+                                              run-kernel
+                                              install-and-enable-extension
+                                              kernel-installed?]])
 
   (:import [org.apache.commons.exec CommandLine
                                     DefaultExecutor
@@ -66,7 +69,9 @@
   ([project sub-command & args]
    (let [cwd (-> (java.io.File. ".") .getAbsolutePath)]
      (case sub-command
-       "install-kernel" (apply install-kernel args)  ;; install the kernel
+       "install-kernel" (do
+                          (apply install-kernel args)
+                          (install-and-enable-extension))
        "uninstall-kernel" (leiningen.core.main/info (str "Not yet implemented.  You can use "
                                                          "'jupyter kernelspec uninstall lein-clojure' "
                                                           "to uninstall the kernel manually."))
