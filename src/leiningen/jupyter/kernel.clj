@@ -2,6 +2,7 @@
   (:require [cheshire.core :as cheshire]
             [leiningen.core.main]
             [leiningen.core.eval :as eval]
+            [leiningen.jupyter.util :as util]
             [clojure.java.shell :refer [sh]]
             [clojure.string :refer [lower-case includes?]]
             [clojure.java.io :as io]))
@@ -64,7 +65,7 @@ the current supported systems are Linux Mac and Windows (In that order).")
 (defn install-extension
   "Instal the lein-jupyter-parinfer extension the user space"
     []
-    (let [extension-dir ( -> "lein-jupyter-parinfer" io/resource io/file)
+    (let [extension-dir (util/copy-resource-dir-in-tmp-dir "lein-jupyter-parinfer")
           install-out (sh "jupyter" "nbextension" "install" (.getCanonicalPath extension-dir) "--user")]
       (if (not= 0 (:exit install-out))
         (leiningen.core.main/warn "Did not succeed to install lein-jupyter-parinfer extension"
@@ -87,7 +88,7 @@ the current supported systems are Linux Mac and Windows (In that order).")
   The kernel will be installed at <location>/lein-clojure."
   ([location]
    (-> location io/as-file create-kernel)
-   (leiningen.core.main/info "kernel successfully installed at " location))
+   (leiningen.core.main/info "kernel successfully installed at " (str location)))
   ([]
    (let [os (get-os)]
      (if (nil? os)
