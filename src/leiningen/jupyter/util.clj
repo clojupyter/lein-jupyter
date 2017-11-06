@@ -19,9 +19,14 @@
 (defn get-resource-by-name [n]
   (slurp (io/resource (str n))))
 
+(defn move-resource [dest content]
+  (io/make-parents dest)
+  (spit dest content))
+
 
 (defn copy-resource-dir-in-tmp-dir [name]
   (let [resources (list-resources-in name)
-        tmp-dir (.toFile (Files/createTempDirectory "lein-jupyter" (into-array FileAttribute [])))]
-    (doall (map #(spit (io/file tmp-dir (.getName %))  (get-resource-by-name %)) resources))
+        root-tmp-dir (.toFile (Files/createTempDirectory "lein-jupyter" (into-array FileAttribute [])))
+        tmp-dir (io/file root-tmp-dir name)]
+    (doall (map #(move-resource (io/file tmp-dir (.getName %))  (get-resource-by-name %)) resources))
     tmp-dir))
