@@ -1,4 +1,4 @@
-(defproject lein-jupyter "0.1.7"
+(defproject lein-jupyter "0.1.8"
   :description "Leiningen plugin for jupyter notebook."
   :url "https://github.com/didiercrunch/lein-jupyter"
   :license {:name " MIT License"}

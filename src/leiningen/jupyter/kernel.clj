@@ -2,8 +2,7 @@
   (:require [cheshire.core :as cheshire]
             [leiningen.core.main]
             [leiningen.core.eval :as eval]
-            [leiningen.jupyter.util :as util]
-            [clojure.java.shell :refer [sh]]
+            [leiningen.jupyter.extension :as util]
             [clojure.string :refer [lower-case includes?]]
             [clojure.java.io :as io]))
 
@@ -52,30 +51,6 @@
 
 (def architecture-not-yet-supported "You system is not supported by lein jupyter.
 the current supported systems are Linux Mac and Windows (In that order).")
-
-(defn enable-extension
-  "enable the lein-jupyter-parinfer extension the user space"
-    []
-    (let [enable-out (sh "jupyter" "nbextension" "enable" "lein-jupyter-parinfer/index" "--user")]
-      (if (not= 0 (:exit enable-out))
-        (leiningen.core.main/warn "Did not succeed to enable lein-jupyter-parinfer extension"
-                                  (:err enable-out))
-        true)))
-
-(defn install-extension
-  "Instal the lein-jupyter-parinfer extension the user space"
-    []
-    (let [extension-dir (util/copy-resource-dir-in-tmp-dir "lein-jupyter-parinfer")
-          install-out (sh "jupyter" "nbextension" "install" (.getCanonicalPath extension-dir) "--user")]
-      (if (not= 0 (:exit install-out))
-        (leiningen.core.main/warn "Did not succeed to install lein-jupyter-parinfer extension"
-          (:err install-out))
-        true)))
-
-(defn install-and-enable-extension []
-  (and (install-extension)
-       (enable-extension)))
-
 
 
 (defn install-kernel

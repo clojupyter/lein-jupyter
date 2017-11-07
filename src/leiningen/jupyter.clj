@@ -1,8 +1,8 @@
 (ns leiningen.jupyter
   (:require [leiningen.core.main]
+            [leiningen.jupyter.extension :refer [install-and-enable-extension]]
             [leiningen.jupyter.kernel :refer [install-kernel
                                               run-kernel
-                                              install-and-enable-extension
                                               kernel-installed?]])
 
   (:import [org.apache.commons.exec CommandLine
