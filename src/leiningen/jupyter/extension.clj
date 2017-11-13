@@ -3,7 +3,8 @@
            [java.nio.file.attribute FileAttribute])
   (:require [clojure.string :as string]
             [clojure.java.io :as io]
-            [clojure.java.shell :refer [sh]]))
+            [clojure.java.shell :refer [sh]]
+            [leiningen.jupyter.params :as params]))
 
 
 (def resources
@@ -28,8 +29,8 @@
 
 (defn enable-extension
   "enable the lein-jupyter-parinfer extension the user space"
-  []
-  (let [enable-out (sh "jupyter" "nbextension" "enable" "lein-jupyter-parinfer/index" "--user")]
+  [jupyter]
+  (let [enable-out (sh jupyter "nbextension" "enable" "lein-jupyter-parinfer/index" "--user")]
     (if (not= 0 (:exit enable-out))
       (leiningen.core.main/warn "Did not succeed to enable lein-jupyter-parinfer extension"
                                 (:err enable-out))
@@ -37,14 +38,15 @@
 
 (defn install-extension
   "Instal the lein-jupyter-parinfer extension the user space"
-  []
+  [jupyter]
   (let [extension-dir (copy-resource-dir-in-tmp-dir "lein-jupyter-parinfer")
-        install-out (sh "jupyter" "nbextension" "install" (.getCanonicalPath extension-dir) "--user")]
+        install-out (sh jupyter "nbextension" "install" (.getCanonicalPath extension-dir) "--user")]
     (if (not= 0 (:exit install-out))
       (leiningen.core.main/warn "Did not succeed to install lein-jupyter-parinfer extension"
                                 (:err install-out))
       true)))
 
-(defn install-and-enable-extension []
-  (and (install-extension)
-       (enable-extension)))
+(defn install-and-enable-extension [project]
+  (let [jupyter (params/jupyer-executable project)]
+    (and (install-extension jupyter)
+         (enable-extension jupyter))))

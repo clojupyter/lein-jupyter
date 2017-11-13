@@ -9,7 +9,7 @@
     (let [sub-command "notebook"
           args ["--port=9999" "--no-browser"]
           expt "[jupyter, notebook, --port=9999, --no-browser]"]
-      (is (= expt (str (jupyter/get-jupyter-command sub-command args)))))))
+      (is (= expt (str (jupyter/get-jupyter-command "jupyter" sub-command args)))))))
 
 (deftest install-kernel
   (testing "the platform specific kernel directory"

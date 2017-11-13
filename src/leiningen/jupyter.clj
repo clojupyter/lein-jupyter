@@ -3,22 +3,24 @@
             [leiningen.jupyter.extension :refer [install-and-enable-extension]]
             [leiningen.jupyter.kernel :refer [install-kernel
                                               run-kernel
-                                              kernel-installed?]])
+                                              kernel-installed?]]
+            [leiningen.jupyter.params :as params])
 
   (:import [org.apache.commons.exec CommandLine
                                     DefaultExecutor
                                     PumpStreamHandler]))
 
-(defn get-jupyter-command [sub-command jupyter-arguments]
+(defn get-jupyter-command [jupyter sub-command jupyter-arguments]
   (let [all-arguments (into [sub-command] jupyter-arguments)
         add-args #(.addArgument %1 %2)]
-      (reduce add-args (new CommandLine "jupyter") all-arguments)))
+      (reduce add-args (new CommandLine jupyter) all-arguments)))
 
 
-(defn start-jupyter-notebook [environ jupyter-arguments]
+(defn start-jupyter-notebook [project environ jupyter-arguments]
   (let [executor (new DefaultExecutor)
         stream-handler (new PumpStreamHandler System/out System/err System/in)
-        cmd (get-jupyter-command "notebook" jupyter-arguments)]
+        jupyter (params/jupyer-executable project)
+        cmd (get-jupyter-command jupyter "notebook" jupyter-arguments)]
     (.setStreamHandler executor stream-handler)
     (.execute executor cmd environ)))
 
@@ -26,13 +28,13 @@
   (let [env (apply hash-map  (mapcat (fn [[x y]] [x y]) (System/getenv)))]
     (into env new-envs)))
 
-(defn notebook [lein-wd & args]
+(defn notebook [project lein-wd & args]
   (if (not (kernel-installed?))
     (leiningen.core.main/warn "It seems you have not installed the lein-jupyter kernel.  "
                               "You should run `lein jupyter install-kernel`."))
   (let [new-env {"LEIN_WORKING_DIRECTORY" lein-wd}
         env (add-to-system-environment new-env)]
-    (start-jupyter-notebook env args)))
+    (start-jupyter-notebook project env args)))
 
 
 (defn jupyter
@@ -71,11 +73,11 @@
      (case sub-command
        "install-kernel" (do
                           (apply install-kernel args)
-                          (install-and-enable-extension))
+                          (install-and-enable-extension project))
        "uninstall-kernel" (leiningen.core.main/info (str "Not yet implemented.  You can use "
                                                          "'jupyter kernelspec uninstall lein-clojure' "
                                                           "to uninstall the kernel manually."))
-       "notebook" (apply notebook cwd args)  ;; main entry
+       "notebook" (apply notebook project cwd args)  ;; main entry
        "kernel" (apply run-kernel project args)   ;; hidden kernel
        (leiningen.core.main/info (:doc (meta #'jupyter))))))
   ([project]
