@@ -50,9 +50,10 @@ has been done under ubuntu linux with jupyter 4.3.0.
 All options can be set in the `:jupyter-options` section of your `project.clj`'s
 `defproject`.  Bellow is the option list
 
-|  Option Name  | Description               | Example                              |
-|:------------ :|:-----------               |:--------                             |
-|`jupyter-path` | the jupyter binary to use | `/home/ubuntu/anaconda3/bin/jupyter` |
+| Option Name     | Description               | Example                              |
+|:---------------:|:--------------------------|:-------------------------------------|
+| `:jupyter-path` | the jupyter binary to use | `/home/ubuntu/anaconda3/bin/jupyter` |
+
 
 ### Using lein-jupyter
 
