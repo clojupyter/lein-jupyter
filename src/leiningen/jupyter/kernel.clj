@@ -39,7 +39,7 @@
                              :language "clojure"
                              :codemirror_mode "clojure"
                              :mimetype "text/x-clojure"
-                             :argv ["python3" (str kernel-script-filename) "{connection_file}"]}))
+                             :argv ["python" (str kernel-script-filename) "{connection_file}"]}))
 
 (defn create-kernel [kernel-dir]
   (let [kernel-json (io/file kernel-dir "lein-clojure" "kernel.json")
