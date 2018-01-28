@@ -26,7 +26,7 @@ has been done under ubuntu linux with jupyter 4.3.0.
 
 
 
-1. `lein-jupyter` is a simple leiningen plugin.  Hence you can add the `[lein-jupyter "0.1.13"]`
+1. `lein-jupyter` is a simple leiningen plugin.  Hence you can add the `[lein-jupyter "0.1.14"]`
     vector in your `:plugins` list in your `project.clj`.  A simple project.clj might look
     like
     
@@ -39,7 +39,7 @@ has been done under ubuntu linux with jupyter 4.3.0.
       :dependencies [[org.clojure/clojure "1.9.0"]]
       :main ^:skip-aot my-project.core
       :target-path "target/%s"
-      :plugins [[lein-jupyter "0.1.13"]]
+      :plugins [[lein-jupyter "0.1.14"]]
       :profiles {:uberjar {:aot :all}})
     ```
 2.  The first time you use lein-jupyter, you will need to install the kernel.
