@@ -3,7 +3,7 @@ A Leiningen plugin to integrate with [jupyter notebook](http://jupyter.org/)
 
 ![jupiter](https://upload.wikimedia.org/wikipedia/commons/0/0a/Tango_Jupiter.svg)
 ![Clojars Project](https://img.shields.io/clojars/v/lein-jupyter.svg)
-[![Build Status](https://travis-ci.org/didiercrunch/lein-jupyter.svg?branch=master)](https://travis-ci.org/didiercrunch/lein-jupyter)
+[![Build Status](https://travis-ci.org/clojupyter/lein-jupyter.svg?branch=master)](https://travis-ci.org/clojupyter/lein-jupyter)
 
 ## Features
 
