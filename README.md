@@ -1,5 +1,6 @@
 # lein-jupyter
 A Leiningen plugin to integrate with [jupyter notebook](http://jupyter.org/)
+and [JupyterLab](https://github.com/jupyterlab/jupyterlab).
 
 ![jupiter](https://upload.wikimedia.org/wikipedia/commons/0/0a/Tango_Jupiter.svg)
 ![Clojars Project](https://img.shields.io/clojars/v/lein-jupyter.svg)
@@ -8,7 +9,8 @@ A Leiningen plugin to integrate with [jupyter notebook](http://jupyter.org/)
 ## Features
 
 * Per project kernel!
-* Parinfer integration!  Check out the new parinfer button in the menu bar.
+* Parinfer integration!  Check out the new parinfer button in the menu bar
+(jupyter notebook only).
 * Made with love
 
 
@@ -21,6 +23,8 @@ You will need to have [leiningen](https://leiningen.org/) and
 [jupyter notebook](http://jupyter.org/) installed globally.  The development
 has been done under ubuntu linux with jupyter 4.3.0.
 
+JupyterLab is a [separate install](https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html)
+which will need to be performed to use the `lein jupyter lab` command.
 
 ### Installation
 
@@ -29,7 +33,7 @@ has been done under ubuntu linux with jupyter 4.3.0.
 1. `lein-jupyter` is a simple leiningen plugin.  Hence you can add the `[lein-jupyter "0.1.14"]`
     vector in your `:plugins` list in your `project.clj`.  A simple project.clj might look
     like
-    
+
     ```    
     (defproject my-project "0.1.0-SNAPSHOT"
       :description "FIXME: write description"
@@ -62,4 +66,5 @@ All options can be set in the `:jupyter-options` section of your `project.clj`'s
 
 The main command line entry is `lein jupyter`.  The first time you use lein-jupyter,
 you will need to install the jupyter kernel using the `lein jupyter install-kernel`
-command.  Then, you can use the `lein jupyter notebook` to run the jupyter notebook.
+command.  Then, you can use the `lein jupyter notebook` to run the jupyter notebook,
+or `lein jupyter lab` to run JupyterLab.
