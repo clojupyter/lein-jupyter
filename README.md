@@ -30,7 +30,7 @@ which will need to be performed to use the `lein jupyter lab` command.
 
 
 
-1. `lein-jupyter` is a simple leiningen plugin.  Hence you can add the `[lein-jupyter "0.1.14"]`
+1. `lein-jupyter` is a simple leiningen plugin.  Hence you can add the `[lein-jupyter "0.1.16"]`
     vector in your `:plugins` list in your `project.clj`.  A simple project.clj might look
     like
 
@@ -43,7 +43,7 @@ which will need to be performed to use the `lein jupyter lab` command.
       :dependencies [[org.clojure/clojure "1.9.0"]]
       :main ^:skip-aot my-project.core
       :target-path "target/%s"
-      :plugins [[lein-jupyter "0.1.14"]]
+      :plugins [[lein-jupyter "0.1.16"]]
       :profiles {:uberjar {:aot :all}})
     ```
 2.  The first time you use lein-jupyter, you will need to install the kernel.
