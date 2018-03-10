@@ -24,6 +24,14 @@
     (.setStreamHandler executor stream-handler)
     (.execute executor cmd environ)))
 
+(defn start-jupyter-lab [project environ jupyter-arguments]
+  (let [executor (new DefaultExecutor)
+        stream-handler (new PumpStreamHandler System/out System/err System/in)
+        jupyter (params/jupyer-executable project)
+        cmd (get-jupyter-command jupyter "lab" jupyter-arguments)]
+    (.setStreamHandler executor stream-handler)
+    (.execute executor cmd environ)))
+
 (defn add-to-system-environment [new-envs]
   (let [env (apply hash-map  (mapcat (fn [[x y]] [x y]) (System/getenv)))]
     (into env new-envs)))
@@ -35,6 +43,14 @@
   (let [new-env {"LEIN_WORKING_DIRECTORY" lein-wd}
         env (add-to-system-environment new-env)]
     (start-jupyter-notebook project env args)))
+
+(defn lab [project lein-wd & args]
+  (if (not (kernel-installed?))
+    (leiningen.core.main/warn "It seems you have not installed the lein-jupyter kernel.  "
+                              "You should run `lein jupyter install-kernel`."))
+  (let [new-env {"LEIN_WORKING_DIRECTORY" lein-wd}
+        env (add-to-system-environment new-env)]
+    (start-jupyter-lab project env args)))
 
 
 (defn jupyter
@@ -78,6 +94,7 @@
                                                          "'jupyter kernelspec uninstall lein-clojure' "
                                                           "to uninstall the kernel manually."))
        "notebook" (apply notebook project cwd args)  ;; main entry
+       "lab" (apply lab project cwd args)
        "kernel" (apply run-kernel project args)   ;; hidden kernel
        (leiningen.core.main/info (:doc (meta #'jupyter))))))
   ([project]
