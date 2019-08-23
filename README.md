@@ -3,8 +3,7 @@ A Leiningen plugin to integrate with [jupyter notebook](http://jupyter.org/)
 and [JupyterLab](https://github.com/jupyterlab/jupyterlab).
 
 ![jupiter](https://upload.wikimedia.org/wikipedia/commons/0/0a/Tango_Jupiter.svg)
-![Clojars Project](https://img.shields.io/clojars/v/lein-jupyter.svg)
-[![Build Status](https://travis-ci.org/clojupyter/lein-jupyter.svg?branch=master)](https://travis-ci.org/clojupyter/lein-jupyter)
+[![Clojars Project](https://img.shields.io/clojars/v/nubank/lein-jupyter.svg)](https://clojars.org/nubank/lein-jupyter)
 
 ## Features
 
@@ -30,7 +29,7 @@ which will need to be performed to use the `lein jupyter lab` command.
 
 
 
-1. `lein-jupyter` is a simple leiningen plugin.  Hence you can add the `[lein-jupyter "0.1.16"]`
+1. `lein-jupyter` is a simple leiningen plugin.  Hence you can add the `[lein-jupyter "0.1.18"]`
     vector in your `:plugins` list in your `project.clj`.  A simple project.clj might look
     like
 
@@ -40,10 +39,10 @@ which will need to be performed to use the `lein jupyter lab` command.
       :url "http://example.com/FIXME"
       :license {:name "Eclipse Public License"
                 :url "http://www.eclipse.org/legal/epl-v10.html"}
-      :dependencies [[org.clojure/clojure "1.9.0"]]
+      :dependencies [[org.clojure/clojure "1.10.1"]]
       :main ^:skip-aot my-project.core
       :target-path "target/%s"
-      :plugins [[lein-jupyter "0.1.16"]]
+      :plugins [[lein-jupyter "0.1.18"]]
       :profiles {:uberjar {:aot :all}})
     ```
 2.  The first time you use lein-jupyter, you will need to install the kernel.
