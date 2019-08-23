@@ -1,0 +1,52 @@
+# Clojure CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-clojure/ for more details
+#
+version: 2.1
+
+job_defaults: &defaults
+    docker:
+      - image: circleci/clojure:lein-2.9.1
+    working_directory: ~/repo
+    environment:
+      LEIN_ROOT: "true"
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: "-Xmx3600m"
+      ENVIRONMENT: "test"
+
+jobs:
+  build:
+    <<: *defaults
+    # Download and cache dependencies
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - lein-jupyter-{{ checksum "project.clj" }}
+          # fallback to using the latest cache if no exact match is found
+          - lein-jupyter-
+      - run: lein deps
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: lein-jupyter-{{ checksum "project.clj" }}
+
+  test-unit:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - lein-jupyter-{{ checksum "project.clj" }}
+          # fallback to using the latest cache if no exact match is found
+          - lein-jupyter-
+      - run: lein test
+
+workflows:
+  version: 2
+  pull-request-validation:
+    jobs:
+      - build
+      - test-unit:
+          requires:
+            - build
