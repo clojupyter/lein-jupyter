@@ -1,15 +1,14 @@
 (ns leiningen.jupyter.kernel
   (:require [cheshire.core :as cheshire]
-            [leiningen.core.main]
+            [clojure.java.io :as io]
+            [clojure.string :refer [includes? lower-case]]
             [leiningen.core.eval :as eval]
-            [leiningen.jupyter.extension :as util]
-            [clojure.string :refer [lower-case includes?]]
-            [clojure.java.io :as io]))
+            [leiningen.core.main]))
 
 (defn run-kernel [project argv]
   (let [curr-deps (or (:dependencies project) [])
-        new-deps (conj curr-deps ['nubank/clojupyter "0.2.2"])
-        prj (assoc project :dependencies new-deps)]
+        new-deps  (conj curr-deps ['clojupyter "0.2.3"])
+        prj       (assoc project :dependencies new-deps)]
     (eval/eval-in-project prj
                           (conj (list argv) `clojupyter.kernel.core/-main)
                           '(require 'clojupyter.kernel.core))))

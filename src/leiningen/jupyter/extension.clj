@@ -1,8 +1,7 @@
 (ns leiningen.jupyter.extension
   (:import [java.nio.file Files]
            [java.nio.file.attribute FileAttribute])
-  (:require [clojure.string :as string]
-            [clojure.java.io :as io]
+  (:require [clojure.java.io :as io]
             [clojure.java.shell :refer [sh]]
             [leiningen.jupyter.params :as params]))
 
