@@ -8,11 +8,11 @@
 
 (defn run-kernel [project argv]
   (let [curr-deps (or (:dependencies project) [])
-        new-deps (conj curr-deps ['org.clojars.didiercrunch/clojupyter "0.1.5"])
+        new-deps (conj curr-deps ['clojupyter "0.3.1"])
         prj (assoc project :dependencies new-deps)]
     (eval/eval-in-project prj
-                          (conj (list argv) `clojupyter.core/-main)
-                          '(require 'clojupyter.core))))
+                          (conj (list argv) `clojupyter.kernel.core/-main)
+                          '(require 'clojupyter.kernel.core))))
 
 
 (def python-kernel-script (-> "leinclojure.py" io/resource slurp))
