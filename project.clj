@@ -1,4 +1,4 @@
-(defproject hellonico/lein-jupyter "0.1.17"
+(defproject hellonico/lein-jupyter "0.1.18-SNAPSHOT"
   :description "Leiningen plugin for jupyter notebook."
   :url "https://github.com/clojupyter/lein-jupyter"
   :license {:name " MIT License"}
