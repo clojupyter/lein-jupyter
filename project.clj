@@ -6,8 +6,8 @@
   :repositories [["central" {:url "https://repo1.maven.org/maven2/" :snapshots false}]
                  ["clojars" {:url "https://clojars.org/repo/"}]]
 
-  :dependencies [[clojupyter "0.2.3"]
-                 [cheshire "5.9.0"]
+  :dependencies [[clojupyter "0.3.1"]
+                 [cheshire "5.10.0"]
                  [org.apache.commons/commons-exec "1.3"]]
   :resource-paths ["resources"]
   :eval-in-leiningen true)
