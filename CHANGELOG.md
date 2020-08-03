@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.22
+- Upgrade `cheshire` to version `5.10.0` again
+- Pin `com.fasterxml.jackson.*` libraries to version `2.10.2`
+
 ## 0.1.21
 - Downgrade `cheshire` to version `5.8.1`
 
