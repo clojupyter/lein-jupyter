@@ -1,4 +1,13 @@
-# Change Log
+# Changelog
+
+## 0.1.21
+- Downgrade `cheshire` to version `5.8.1`
+
+## 0.1.20
+- Bump `clojupyter` to version `0.3.2`
+
+## 0.1.19
+- Bump `clojupyter` to version `0.3.1`
 
 ## 0.1.18
 - Bump libs
