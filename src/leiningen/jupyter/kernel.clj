@@ -7,7 +7,7 @@
 
 (defn run-kernel [project argv]
   (let [curr-deps (or (:dependencies project) [])
-        new-deps  (conj curr-deps ['clojupyter "0.3.2"])
+        new-deps  (conj curr-deps ['dev.nubank/clojupyter "0.3.2-fix1"])
         prj       (assoc project :dependencies new-deps)]
     (eval/eval-in-project prj
                           (conj (list argv) `clojupyter.kernel.core/-main)

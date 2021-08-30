@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.23
+- Use `dev.nubank/clojupyter` fork on version `0.3.2-fix1`
+- Remove pinned dependencies
+
 ## 0.1.22
 - Upgrade `cheshire` to version `5.10.0` again
 - Pin `com.fasterxml.jackson.*` libraries to version `2.10.2`
