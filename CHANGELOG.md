@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.24
+- Upgrade `dev.nubank/clojupyter` to verion 0.3.3-SNAPSHOT
+
 ## 0.1.23
 - Use `dev.nubank/clojupyter` fork on version `0.3.2-fix1`
 - Remove pinned dependencies
